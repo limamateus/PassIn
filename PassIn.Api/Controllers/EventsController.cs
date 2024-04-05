@@ -27,7 +27,7 @@ public class EventsController : ControllerBase
 
     [HttpGet]
     [Route("{id}")]
-    [ProducesResponseType(typeof(ResponseRegisterJson), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ResponseRegisterJson), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
     public IActionResult GetById(Guid id)
     {
@@ -41,16 +41,5 @@ public class EventsController : ControllerBase
 
 
 
-    [HttpPost]
-    [Route("{eventId}/register")]
-    [ProducesResponseType(typeof(ResponseRegisterJson), StatusCodes.Status201Created)]
-    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status409Conflict)]
-    public IActionResult Register([FromRoute]Guid eventId, [FromBody] RequestRegisterEventJson request)
-    {
-        var useCase = new RegisterAttedeeOnEventUseCase();
-         var response =   useCase.Execute(eventId, request);
-        return Created(string.Empty, response);
-    }
+  
 }
