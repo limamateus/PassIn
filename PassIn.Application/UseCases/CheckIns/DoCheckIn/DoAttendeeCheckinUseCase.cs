@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace PassIn.Application.UseCases.CheckIns.DoCheckIn
 {
-    public class DoAttendeeCheckinUseCase
+    public class GetAttendeeCheckinUseCase
     {
         private readonly PassInDbContext _dbContext;
 
-        public DoAttendeeCheckinUseCase()
+        public GetAttendeeCheckinUseCase()
         {
             _dbContext = new PassInDbContext();
         }
