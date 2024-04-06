@@ -8,7 +8,7 @@ namespace PassIn.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CheckInControllerController : ControllerBase
+    public class CheckInController : ControllerBase
     {
         [HttpPost]
         [Route("{attendeeId}")]
