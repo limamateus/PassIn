@@ -9,7 +9,7 @@ namespace PassIn.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AttendeesController : ControllerBase
+    public class Attendees : ControllerBase
     {
 
         [HttpPost]
