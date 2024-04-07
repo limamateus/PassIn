@@ -34,6 +34,15 @@ namespace PassIn.Application.UseCases.Attendees.GetAllByEventId
                     Email = att.Email,
                     CreatedAt= att.Created_at,
                     CheckedInAt = att.CheckIn?.Created_at,
+                    Event = new ResponseEventJson
+                    {
+                       
+                        Title = entity.Title,
+                        Details = entity.Details,
+
+
+                    }
+
                 }).ToList(),
             };
         }

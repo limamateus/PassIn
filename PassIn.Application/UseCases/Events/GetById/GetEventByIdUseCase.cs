@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using PassIn.Application.UseCases.Attendees.GetById;
 using PassIn.Communication.Responses;
 using PassIn.Exceptions;
 using PassIn.Infrastructure;
@@ -9,10 +10,13 @@ public class GetEventByIdUseCase
     public ResponseEventJson Execute(Guid id)
     {
         var dbContext = new PassInDbContext();
+       
 
         var entity = dbContext.Events.Include(ev => ev.Attendees).FirstOrDefault(ev => ev.Id == id);
         if (entity is null)
         throw new NotFoundExeption("An event with this id dont exist.");
+
+      
 
         return new ResponseEventJson
         {

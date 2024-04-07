@@ -6,4 +6,6 @@ public class ResponseAttendeeJson
     public string Email { get; set; } = string.Empty;
     public DateTime CreatedAt { get; set; }
     public DateTime? CheckedInAt { get; set; }
+
+    public ResponseEventJson Event { get; set; }
 }

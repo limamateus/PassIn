@@ -21,10 +21,12 @@ namespace PassIn.Application.UseCases.CheckIns.DoCheckIn
         public ResponseRegisterJson Excute(Guid attendeeId)
         {
             Validate(attendeeId);
+
             var entity = new CheckIn
             {
-                Attendee_Id = attendeeId,
+                Attendee_Id = attendeeId, // Id
                 Created_at = DateTime.UtcNow,
+                Code =  attendeeId.ToString().Substring(0,4).ToUpper() + Convert.ToString(DateTime.UtcNow.ToString("mmss")),
 
             };
             _dbContext.CheckIns.Add(entity);
@@ -32,6 +34,7 @@ namespace PassIn.Application.UseCases.CheckIns.DoCheckIn
             return new ResponseRegisterJson
             {
                 Id = entity.Id,
+                Code = entity.Code,
             };
         }
 

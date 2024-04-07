@@ -11,5 +11,7 @@ namespace PassIn.Communication.Responses
         public Guid Id { get; set; }
         public Guid Attendee_Id { get; set; }
 
+        public string Code { get; set; }
+
     }
 }

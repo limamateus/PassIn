@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PassIn.Application.UseCases.CheckIns.DoCheckIn;
 using PassIn.Application.UseCases.CheckIns.GetCheckInAttendee;
+using PassIn.Application.UseCases.CheckIns.GetCheckInByCode;
 using PassIn.Communication.Responses;
 
 namespace PassIn.Api.Controllers
@@ -18,9 +19,10 @@ namespace PassIn.Api.Controllers
         public IActionResult Checkin([FromRoute] Guid attendeeId)
         {
             var useCase = new GetAttendeeCheckinUseCase();
+
             var response = useCase.Excute(attendeeId);
 
-            return Created();
+            return Created(string.Empty, response);
         }
 
         [HttpGet]
@@ -35,6 +37,19 @@ namespace PassIn.Api.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet]       
+        [ProducesResponseType(typeof(ResponseRegisterJson), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)] // Caso não encontre
+        [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status409Conflict)] // Caso o usuario tente realizar um checking duas vezes
+        public IActionResult GetCheckinAttendee([FromQuery] string code)
+        {
+            var useCase = new GetCheckInByCodeUseCase();
+            var response = useCase.Excute(code);
+
+            return Ok(response);
+        }
+
 
 
 

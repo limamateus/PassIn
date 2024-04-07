@@ -1,4 +1,6 @@
-﻿using PassIn.Communication.Requests;
+﻿using PassIn.Application.UseCases.Attendees.GetById;
+using PassIn.Application.UseCases.Events.Register;
+using PassIn.Communication.Requests;
 using PassIn.Communication.Responses;
 using PassIn.Exceptions;
 using PassIn.Infrastructure;
@@ -22,17 +24,18 @@ namespace PassIn.Application.UseCases.Events.RegisterAttendee
 
 
         }
-        public ResponseRegisterJson Execute( Guid eventId, RequestRegisterEventJson request)
+        public ResponseAttendeeJson Execute( Guid eventId, RequestRegisterEventJson request)
         {           
             Validate(request, eventId);
 
+            
 
             var entity = new Infrastructure.Entities.Attendee
             { 
                 Name = request.Name,
                 Email = request.Email,
                 Event_Id = eventId,
-                Created_at = DateTime.UtcNow,
+                Created_at = DateTime.UtcNow,               
 
 
             };
@@ -40,9 +43,21 @@ namespace PassIn.Application.UseCases.Events.RegisterAttendee
             _dbContext.Attendees.Add(entity);
             _dbContext.SaveChanges();
 
-            return new ResponseRegisterJson
+
+            var getEvent = new GetEventByIdUseCase().Execute(eventId);
+
+            return new ResponseAttendeeJson
             {
                 Id = entity.Id,
+                Name= entity.Name,
+                Email= entity.Email,
+                CreatedAt = entity.Created_at,
+                Event = new ResponseEventJson{
+                    Title = getEvent.Title,
+                    Details = getEvent.Details,
+                    AttendeesAmount = getEvent.AttendeesAmount,
+                    MaximumAttendees = getEvent.MaximumAttendees
+                },                
             };
         }
 
